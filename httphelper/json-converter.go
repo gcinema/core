@@ -1,4 +1,4 @@
-package httpserver
+package httphelper
 
 import (
 	"encoding/json"
