@@ -1,4 +1,4 @@
-package httphelper
+package res
 
 import (
 	"encoding/json"
