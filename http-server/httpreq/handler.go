@@ -1,18 +1,24 @@
+// Package httpreq contains HTTP request helpers.
 package httpreq
 
 import (
-	"encoding/json"
 	"net/http"
+
+	"github.com/gcinema/core/http-server/httpres"
 )
 
-type StructValidator interface {
-	Struct(s any) error
-}
+func DecodeAndValidateBody[T any](w *http.ResponseWriter, req *http.Request, validator StructValidator) (*T, error) {
+	payload, err := decodeBody[T](req.Body)
+	if err != nil {
+		httpres.ConvertToJSON(*w, err.Error(), 402)
+		return nil, err
+	}
 
-func DecodeBody(req *http.Request, body *any) error {
-	return json.NewDecoder(req.Body).Decode(body)
-}
+	err = validate(validator, &payload)
+	if err != nil {
+		httpres.ConvertToJSON(*w, err.Error(), 402)
+		return nil, err
+	}
 
-func Validate(body any, validator StructValidator) error {
-	return validator.Struct(body)
+	return payload, nil
 }

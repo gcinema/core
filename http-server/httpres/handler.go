@@ -1,3 +1,4 @@
+// Package httpres contains HTTP response helpers.
 package httpres
 
 import (
