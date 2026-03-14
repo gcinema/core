@@ -1,4 +1,4 @@
-package req
+package httpreq
 
 import (
 	"encoding/json"
