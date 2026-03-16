@@ -5,5 +5,5 @@ type StructValidator interface {
 }
 
 func validate[T any](validator StructValidator, payload *T) error {
-	return validator.Struct(&payload)
+	return validator.Struct(payload)
 }

@@ -14,9 +14,9 @@ func DecodeAndValidateBody[T any](w *http.ResponseWriter, req *http.Request, val
 		return nil, err
 	}
 
-	err = validate(validator, &payload)
+	err = validate(validator, payload)
 	if err != nil {
-		httpres.ConvertToJSON(*w, err.Error(), 402)
+		httpres.ConvertToJSON(*w, err.Error(), 400)
 		return nil, err
 	}
 
